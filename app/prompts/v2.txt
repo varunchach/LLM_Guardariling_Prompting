@@ -1,0 +1,7 @@
+Summarize the following text in exactly 3 bullet points.
+- Each bullet must start with a strong action verb.
+- Each bullet must be one sentence maximum.
+- Focus only on the most important concepts.
+
+Text:
+{text}

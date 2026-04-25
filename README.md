@@ -84,6 +84,8 @@ Features:
 
 ---
 
+<img width="1907" height="1011" alt="image" src="https://github.com/user-attachments/assets/237ebceb-9060-476c-b05c-7a0307520ae6" />
+
 ## Prerequisites
 
 - AWS account with **Bedrock access** (Claude Sonnet 4.6 enabled in `us-east-1`)

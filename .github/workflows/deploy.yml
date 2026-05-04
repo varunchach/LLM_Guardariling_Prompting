@@ -6,7 +6,6 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPO:   bedrock-chatbot
 
 jobs:
   deploy:
@@ -29,6 +28,7 @@ jobs:
       - name: Build and push image to ECR
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPO: ${{ secrets.ECR_REPO }}
         run: |
           IMAGE=$REGISTRY/$ECR_REPO:latest
           docker build -t $IMAGE ./app
@@ -42,7 +42,7 @@ jobs:
           key:      ${{ secrets.EC2_SSH_KEY }}
           script: |
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}
-            docker pull ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO }}:latest
+            docker pull ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
             docker stop chatbot || true
             docker rm chatbot || true
-            docker run -d -p 8501:8501 --name chatbot --restart always ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO }}:latest
+            docker run -d -p 8501:8501 --name chatbot --restart always ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
